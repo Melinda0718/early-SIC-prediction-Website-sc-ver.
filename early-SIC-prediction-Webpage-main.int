@@ -1,0 +1,50 @@
+import os
+import sys
+import streamlit.web.cli as stcli
+from pathlib import Path
+
+def get_resource_path(relative_path):
+    
+    if getattr(sys, 'frozen', False):
+        
+        base_path = Path(sys._MEIPASS)  
+    else:
+      
+        base_path = Path(__file__).parent
+    
+    return base_path / relative_path
+
+def main():
+    
+    main_path = get_resource_path("main.py")
+    print(f"[调试] 尝试定位main.py: {main_path}")
+    
+    
+    if not main_path.exists():
+        print(f"[错误] 找不到main.py文件: {main_path}")
+        
+       
+        print("\n[调试信息]")
+        print(f"sys.frozen: {getattr(sys, 'frozen', False)}")
+        print(f"sys.executable: {sys.executable}")
+        print(f"当前工作目录: {Path.cwd()}")
+        
+        
+        print("\n当前目录文件列表:")
+        for file in Path.cwd().iterdir():
+            print(f"- {file}")
+            
+        sys.exit(1)
+    
+    
+    main_path_str = str(main_path.resolve())
+    
+  
+    sys.argv = ['streamlit', 'run', main_path_str, '--global.developmentMode=false']
+    print(f"[调试] 执行命令: {' '.join(sys.argv)}")
+    
+    
+    sys.exit(stcli.main())
+
+if __name__ == "__main__":
+    main()
