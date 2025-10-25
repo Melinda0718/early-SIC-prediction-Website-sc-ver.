@@ -1,0 +1,8 @@
+,Feature_Names,split_score,gain_score,Weights
+23,sofa_circ,100,100,100
+24,sofa_renal,100,100,100
+28,platelet_count,100,100,100
+32,inr,100,100,100
+22,sofa_resp,100,96.66666667,98.33333333
+40,lactate,95,100,97.5
+,sic_score_d1,,,
